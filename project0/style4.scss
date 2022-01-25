@@ -1,0 +1,15 @@
+div{
+  p{
+    color: white;
+  }
+}
+
+%message {
+  font-size: 18px;
+  border: 1px solid black;
+}
+
+.sucess {
+  @extend %message;
+  background-color: lightblue;
+}
