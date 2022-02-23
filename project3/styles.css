@@ -1,0 +1,19 @@
+body{
+  background-color: Lightgreen;
+}
+
+h1{
+    text-align: center;
+}
+
+
+#map {
+
+    height: 80%;
+    width: 50%;
+  }
+
+  table {
+    border: 2px solid black;
+    Border-collapse: collapse;
+  }

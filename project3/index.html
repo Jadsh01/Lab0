@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title> MAPS </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <!--this is for the markers -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
+</head>
+
+  <body>
+    <h1> MAPS</h1>
+<p style="color:;text-align:center;"> Welcome to MAPS, a website were users can search for data on the city of Calgary map. </p>
+
+<table>
+  <tr>
+    <th>Map Layer</th>
+  
+
+  </tr>
+  <tr>
+
+    <td>  <a href = "Toggle.html">Toggle on</a> </td>
+
+  </tr>
+  </table>
+
+
+
+
+
+<!-- map-->
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+<!--search bar-->
+<p>Search for dates here: </p>
+  <div>
+    <form onsubmit="FindDates(); return false;">
+      <label>Intial Date</label>
+      <input type="date" id="from">
+      <br>
+      <label>To Date</label>
+      <input type="date" id="to">
+      <br>
+      <input  type="submit" value="Search Dates">
+  </form>
+  </div>
+
+  <script>
+    //API
+     api='https://data.calgary.ca/resource/c2es-76ed.geojson?';
+     <!--search dates-->
+    async function FindDates(){
+     let dateFrom=document.querySelector('#from').value;
+      let dateTo=document.querySelector('#to').value;
+      if(dateFrom!=dateTo){
+        //sorting the api
+        let link=api+'$where=issueddate > '+ '\'' + dateFrom +'\''+' and issueddate < '+'\''+dateTo+'\'';
+        const response = await fetch(link);
+        let result = await response.json();
+        console.log(link);
+        var markers = L.markerClusterGroup();
+        const Geomark= L.geoJSON(result, {
+          //popup result
+            onEachFeature : function(feature, layer){
+                var popupContent =  'Issued-date: '+feature.properties.issueddate+'<br>'+'Work Class Group: '+feature.properties.workclassgroup
+                +'<br>'+'Contractor name:'+feature.properties.contractorname+'<br>'+'Community name: '+feature.properties.communityname
+                +'<br>'+'Original adress: '+feature.properties.originaladdress;
+                layer.bindPopup(popupContent)},  });
+        markers.addLayer(Geomark);
+        map.addLayer(markers);}}
+   var map = L.map('map').setView([51, -114], 10);
+   const attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    const tileUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const tiles=L.tileLayer(tileUrl,{attribution});
+
+   tiles.addTo(map);
+
+  </script>
+</div>
+</body>
+</html>

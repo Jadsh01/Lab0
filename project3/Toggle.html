@@ -1,0 +1,58 @@
+<html>
+<head>
+
+
+
+<meta charset=utf-8 />
+<title>Toggle on</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:50; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiamFkc2hlaGFkZWgiLCJhIjoiY2t6eGtqZDB1MDJmczJvcXY4aXRwOXY5ZiJ9.PUmKzwyzZHEP4UXfrwc81A';
+var map = L.map('map').setView([38.97416, -95.23252], 15);
+
+// Add tiles from the Mapbox Static Tiles API
+// (https://docs.mapbox.com/api/maps/#static-tiles)
+// Tiles are 512x512 pixels and are offset by 1 zoom level
+L.tileLayer(
+    'https://api.mapbox.com/styles/v1/jadshehadeh/ckzyr9aak001315pxttigdnkv/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+
+//mapbox://styles/jadshehadeh/ckzyr9aak001315pxttigdnkv
+
+        tileSize: 512,
+        zoomOffset: -1,
+        attribution: '© <a href="https://www.mapbox.com/contribute/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+</script>
+
+<style>
+table{
+  border: 2px solid black;
+  Border-collapse: collapse;
+}
+  </style>
+
+<table>
+  <tr>
+    <th>Map Layer</th>
+
+
+  </tr>
+  <tr>
+
+    <td>  <a href = "index.html">Toggle off</a> </td>
+
+  </tr>
+  </table>
+
+</body>
+</html>
