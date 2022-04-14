@@ -1,0 +1,49 @@
+<html>
+
+<head>
+
+<title>Lab 5</title>
+<Link rel="StyleSheet" href="style.css">
+
+<meta content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+</head>
+
+
+
+
+
+
+
+<body>
+
+<h1 style="color:;text-align:center;">Lab 5</h1>
+<p style="color:;text-align:center;">For this lab, we needed to create a webpage that displays a map once the user enters it. Users should be able to draw polygons on the displayed map, and then simplify the polygons using Turf. Moreover, we needed to add a delete button such that users are able to delete their drawn polygons.</p>
+
+
+
+
+<div id="map"></div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.1/mapbox-gl-draw.js"></script>
+<link rel="Stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.1/mapbox-gl-draw.css" type="text/css">
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGV0ZXJzaGVuIiwiYSI6ImNrbTFhaXMyZTB2M2gycHBmaHU2bmR6ajQifQ.EEUPleBNyQJqb9nz4dcbQA';
+var map = new mapboxgl.Map({container: 'map',style: 'mapbox://styles/mapbox/dark-v9', center: [-114.0719, 51.0447],zoom: 12 });
+var draw = new MapboxDraw({displayControlsDefault: false,controls: {polygon: true,trash: true}});
+map.addControl(draw);
+map.on('draw.create', updateArea);
+map.on('draw.delete', updateArea);
+map.on('draw.update', updateArea);
+var options = {tolerance: 0.01, highQuality: false};
+var simplified = turf.simplify(geojson, options);
+</script>
+
+
+
+
+</body>
+</html>

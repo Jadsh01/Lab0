@@ -1,0 +1,14 @@
+#map {
+  height: 50vh;
+  width: 50vw;
+  top: 7.5vh;
+  left: 25vw;
+  bottom: 7.5vh;
+  border-radius: 10px;
+
+}
+
+
+body{
+  background-color: lightblue;
+}
